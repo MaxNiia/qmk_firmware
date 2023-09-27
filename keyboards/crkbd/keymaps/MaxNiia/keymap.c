@@ -22,13 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,   KC_ESC,
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  LGUI_T(KC_ESC),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,MOD_LGUI,
+      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, RSFT_T(KC_QUOT),
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_LALT,
+      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            MO(1),  KC_SPC,  KC_ENT,     KC_DEL, KC_BSPC,   MO(2)
+                                          MO(1),KC_SPC,LALT_T(KC_ENT),RALT_T(KC_DEL),KC_BSPC,MO(2)
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -47,11 +47,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TRNS,  KC_GRV, KC_QUOT,  KC_DQT, KC_LPRN, KC_RPRN,                      KC_TILD, KC_AMPR,KC_MINUS, KC_UNDS,   KC_NO, KC_TRNS,
+      KC_TRNS, KC_QUES,  KC_GRV, KC_TILD, KC_LPRN, KC_RPRN,                      KC_CIRC, KC_AMPR,KC_MINUS, KC_UNDS,  KC_DLR, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, KC_EXLM,   KC_AT, KC_HASH, KC_LCBR, KC_RCBR,                      KC_PERC, KC_ASTR, KC_PLUS,KC_EQUAL, KC_COLN, KC_TRNS,
+      KC_TRNS, KC_EXLM,   KC_AT, KC_HASH, KC_LCBR, KC_RCBR,                      KC_PERC, KC_ASTR, KC_PLUS,KC_EQUAL, KC_TRNS, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS, KC_BSLS, KC_PIPE,   KC_NO, KC_LBRC, KC_RBRC,                       KC_DLR, KC_CIRC,   KC_LT,   KC_GT, KC_QUES, KC_TRNS,
+      KC_TRNS, KC_BSLS, KC_PIPE, KC_PERC, KC_LBRC, KC_RBRC,                      KC_CIRC,  KC_DLR, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                             MO(3), KC_TRNS, KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS
                                       //`--------------------------'  `--------------------------'
@@ -160,7 +160,7 @@ void render_bootmagic_status(bool status) {
     }
 }
 
-void oled_render_logo(void) {
+void oled_render_logo_max(void) {
     static const char PROGMEM crkbd_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
         0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
@@ -174,7 +174,7 @@ bool oled_task_user(void) {
         oled_render_layer_state();
         oled_render_keylog();
     } else {
-        oled_render_logo();
+        oled_render_logo_max();
     }
     return false;
 }
