@@ -35,6 +35,13 @@ __attribute__((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRI
 
 #ifdef OLED_ENABLE
 
+void oled_render_wpm(void) {
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
+    oled_write_ln_P(PSTR(""), false);
+}
+
+
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
         return OLED_ROTATION_180; // flips the display 180 degrees if offhand
@@ -46,19 +53,22 @@ static void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
-            oled_write_ln_P(PSTR("Default"), false);
+            oled_write_ln_P(PSTR("Alpha"), false);
             break;
         case 1:
-            oled_write_ln_P(PSTR("Lower"), false);
+            oled_write_ln_P(PSTR("Numbers"), false);
             break;
         case 2:
-            oled_write_ln_P(PSTR("Raise"), false);
+            oled_write_ln_P(PSTR("Symbols"), false);
             break;
         case 3:
-            oled_write_ln_P(PSTR("Adjust"), false);
+            oled_write_ln_P(PSTR("Direction"), false);
             break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
+        case 4:
+            oled_write_ln_P(PSTR("Led"), false);
+            break;
+        case 5:
+            oled_write_ln_P(PSTR("Game"), false);
             break;
     }
 }
@@ -113,6 +123,7 @@ static void oled_render_keylog(void) {
     oled_write(depad_str(last_keycode_str, ' '), false);
     oled_write_P(PSTR(":"), false);
     oled_write_char(key_name, false);
+    oled_write_ln_P(PSTR(""), false);
 }
 
 // static void render_bootmagic_status(bool status) {
@@ -148,6 +159,7 @@ bool oled_task_kb(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
+        oled_render_wpm();
     } else {
         oled_render_logo();
     }
