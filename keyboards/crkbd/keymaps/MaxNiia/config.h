@@ -40,6 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 150
 #define PERMISSIVE_HOLD
 
+// Make rolling trigger wrong input less
+#define BILATERAL_COMBINATIONS
+
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define QUICK_TAP_TERM 0
 
