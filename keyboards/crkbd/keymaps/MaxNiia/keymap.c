@@ -101,28 +101,33 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
     }
 
-#define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
+#define L_ALPHA 0
+#define L_NUMBER 2
+#define L_SYMBOLS 4
+#define L_DIRECTION 8
+#define L_LED 16
+#define L_GAME 32
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (layer_state) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
+        case L_ALPHA:
+            oled_write_ln_P(PSTR("Alpha"), false);
             break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
+        case L_NUMBER:
+            oled_write_ln_P(PSTR("Numbers"), false);
             break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
+        case L_SYMBOLS:
+            oled_write_ln_P(PSTR("Symbols"), false);
             break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
+        case L_DIRECTION:
+            oled_write_ln_P(PSTR("Direction"), false);
+            break;
+        case L_LED:
+            oled_write_ln_P(PSTR("Led"), false);
+            break;
+        case L_GAME:
+            oled_write_ln_P(PSTR("Game"), false);
             break;
     }
 }
@@ -156,6 +161,11 @@ void oled_render_keylog(void) {
     oled_write(keylog_str, false);
 }
 
+void oled_render_wpm(void) {
+    oled_write_P(PSTR("WPM:"), false);
+    oled_write_ln_P(get_u8_str(get_current_wpm(), '0'), false);
+}
+
 void render_bootmagic_status(bool status) {
     /* Show Ctrl-Gui Swap options */
     static const char PROGMEM logo[][2][3] = {
@@ -183,6 +193,7 @@ void oled_render_logo_max(void) {
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
+        oled_render_wpm();
         oled_render_keylog();
     } else {
         oled_render_logo_max();
