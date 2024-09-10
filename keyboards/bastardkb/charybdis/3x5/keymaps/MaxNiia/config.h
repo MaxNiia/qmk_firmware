@@ -5,22 +5,13 @@
 // default but used in macros
 #undef TAPPING_TERM
 #define TAPPING_TERM 150
+
 #define PERMISSIVE_HOLD
-
-// Make rolling trigger wrong input less
-#define BILATERAL_COMBINATIONS
-
-// Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define QUICK_TAP_TERM 0
-
-#define RETRO_TAPPING
 
 // Auto Shift
 #define NO_AUTO_SHIFT_ALPHA
 #define AUTO_SHIFT_TIMEOUT TAPPING_TERM
 #define AUTO_SHIFT_NO_SETUP
-
-#undef CHARYBDIS_AUTO_SNIPING_ON_LAYER
 
 /* Charybdis-specific features. */
 

@@ -93,9 +93,9 @@ static uint16_t auto_pointer_layer_timer = 0;
  * symmetrical to accomodate the left- and right-hand trackball.
  */
 #define LAYOUT_LAYER_MEDIA                                                                    \
-    RGB_RMOD, RGB_MOD, RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX, GAMING, \
+    RGB_RMOD, RGB_MOD, RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX,  GAMING, \
      KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, \
-     RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX,  QK_BOOT, EE_CLR, XXXXXXX,  XXXXXXX, RGB_SPI, RGB_SPD, \
+     RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, EE_CLR,  XXXXXXX, RGB_SPI, RGB_SPD, \
                       _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY
 
 /** \brief Mouse emulation and pointer functions. */
@@ -117,7 +117,7 @@ static uint16_t auto_pointer_layer_timer = 0;
     _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
     ______________HOME_ROW_GACS_L______________, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, CW_TOGG, \
     _______________DEAD_HALF_ROW_______________, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, \
-                      XXXXXXX, _______, XXXXXXX, XXXXXXX, KC_DEL
+                      XXXXXXX, _______, XXXXXXX,  KC_ESC,  KC_DEL
 
 /**
  * \brief Numeral layout.
@@ -150,19 +150,19 @@ static uint16_t auto_pointer_layer_timer = 0;
  * \brief Gaming layer.
  */
 #define LAYOUT_LAYER_GAMING                                                                   \
-               KC_T, KC_Q,    KC_W,    KC_E,    KC_R,    KC_Y,   KC_U,    KC_I,    KC_O,     KC_P, \
-       LSFT_T(KC_G), KC_A,    KC_S,    KC_D,    KC_F,    KC_H,   KC_J,    KC_K,    KC_L,  KC_QUOT, \
-       LCTL_T(KC_B), KC_Z,    KC_X,    KC_C,    KC_V,    KC_N,   KC_M, KC_COMM,  KC_DOT,     BASE, \
-                          GAM_NUM,  KC_SPC,  LALT_T(KC_ENT),  KC_ESC, KC_TAB
+            KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,      KC_Y,   KC_U,  KC_UP,    KC_O,   KC_P,  \
+            KC_LSFT, KC_A,    KC_S,    KC_D,   KC_F,      KC_H,KC_LEFT,KC_DOWN,KC_RIGHT,   KC_L,  \
+            KC_LCTL, KC_Z,    KC_X,    KC_C,   KC_V,   DRGSCRL,KC_BTN1,KC_BTN2, KC_BTN3,   SNIPING,  \
+                  GAM_NUM,  KC_SPC, KC_LALT,           KC_BTN4, KC_BTN5
 
 /**
  * \brief Gaming numeral layer.
  */
 #define LAYOUT_LAYER_GAMING_NUMERAL                                                                  \
-         KC_LBRC,    KC_7,    KC_8,    KC_9, XXXXXXX, _______________DEAD_HALF_ROW_______________, \
-    LSFT_T(KC_0),    KC_4,    KC_5,    KC_6, XXXXXXX, ______________HOME_ROW_GACS_R______________, \
-         KC_LCTL,    KC_1,    KC_2,    KC_3, XXXXXXX, _______________DEAD_HALF_ROW_______________, \
-                           _______,  KC_SPC, KC_LALT, XXXXXXX, _______
+          KC_ESC,    KC_7,    KC_8,    KC_9,  KC_ESC,      KC_F6, KC_F7,  KC_F8,   KC_F9,  KC_F10,  \
+         KC_LSFT,    KC_4,    KC_5,    KC_6,    KC_0,      KC_F1, KC_F2,  KC_F3,   KC_F4,   KC_F5,  \
+         KC_LCTL,    KC_1,    KC_2,    KC_3,    BASE,   DRGSCRL,KC_BTN1,KC_BTN2,KC_BTN3,   SNIPING, \
+                           _______,  KC_SPC, KC_LALT,    KC_F11, KC_F12
 
 /**
  * \brief Add Home Row mod to a layout.
@@ -253,13 +253,13 @@ void matrix_scan_user(void) {
 }
 #    endif // CHARYBDIS_AUTO_POINTER_LAYER_TRIGGER_ENABLE
 
-// #    ifdef CHARYBDIS_AUTO_SNIPING_ON_LAYER
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, CHARYBDIS_AUTO_SNIPING_ON_LAYER));
-//     return state;
-// }
-// #    endif // CHARYBDIS_AUTO_SNIPING_ON_LAYER
-#endif // POINTING_DEVICE_ENABLE
+#    ifdef CHARYBDIS_AUTO_SNIPING_ON_LAYER
+layer_state_t layer_state_set_user(layer_state_t state) {
+    charybdis_set_pointer_sniping_enabled(layer_state_cmp(state, CHARYBDIS_AUTO_SNIPING_ON_LAYER));
+    return state;
+}
+#    endif // CHARYBDIS_AUTO_SNIPING_ON_LAYER
+#endif     // POINTING_DEVICE_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
 // Forward-declare this helper function since it is defined in
