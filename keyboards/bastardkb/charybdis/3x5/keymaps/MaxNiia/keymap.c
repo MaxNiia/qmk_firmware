@@ -95,8 +95,8 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define LAYOUT_LAYER_MEDIA                                                                    \
     RGB_RMOD, RGB_MOD, RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX,  GAMING, \
      KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, \
-     RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, EE_CLR,  XXXXXXX, RGB_SPI, RGB_SPD, \
-                      _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY
+     RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX,   NK_ON, QK_BOOT, EE_CLR,  XXXXXXX, RGB_SPI, RGB_SPD, \
+                       _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY
 
 /** \brief Mouse emulation and pointer functions. */
 #define LAYOUT_LAYER_POINTER                                                                  \
