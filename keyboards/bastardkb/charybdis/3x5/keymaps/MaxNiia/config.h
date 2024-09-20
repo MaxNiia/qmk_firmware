@@ -1,5 +1,7 @@
 #pragma once
 
+#define MOUSE_EXTENDED_REPORT
+
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10
 
 // default but used in macros
