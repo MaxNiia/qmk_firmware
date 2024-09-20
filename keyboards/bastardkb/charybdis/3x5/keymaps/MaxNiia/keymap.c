@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "keycodes.h"
 #include QMK_KEYBOARD_H
 
@@ -66,7 +67,7 @@ static uint16_t auto_pointer_layer_timer = 0;
  * Layers used on the Charybdis Nano.
  *
  * These layers started off heavily inspired by the Miryoku layout, but trimmed
- * down and tailored for a stock experience that is meant to be fundation for
+ * down and tailored for a stock experience that is meant to be foundation for
  * further personalization.
  *
  * See https://github.com/manna-harbour/miryoku for the original layout.
@@ -90,7 +91,7 @@ static uint16_t auto_pointer_layer_timer = 0;
  * \brief Media layer.
  *
  * Tertiary left- and right-hand layer is media and RGB control.  This layer is
- * symmetrical to accomodate the left- and right-hand trackball.
+ * symmetrical to accommodate the left- and right-hand trackball.
  */
 #define LAYOUT_LAYER_MEDIA                                                                    \
     RGB_RMOD, RGB_MOD, RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX,  GAMING, \
