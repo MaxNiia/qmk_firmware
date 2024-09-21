@@ -120,8 +120,8 @@ static uint16_t auto_pointer_layer_timer = 0;
     _______________DEAD_HALF_ROW_______________, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, \
                       XXXXXXX, _______, XXXXXXX,  KC_ESC,  KC_DEL
 
-#define LPAREN RSFT_T(KC_LPRN)
-#define RPAREN RCTL_T(KC_LPRN)
+#define LPAREN RSFT_T(KC_LBRC)
+#define RPAREN RCTL_T(KC_LBRC)
 /**
  * \brief Numeral layout.
  *
@@ -130,9 +130,9 @@ static uint16_t auto_pointer_layer_timer = 0;
  * `KC_DOT` is duplicated from the base layer.
  */
 #define LAYOUT_LAYER_NUMERAL                                                                  \
-    KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, \
+    KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, \
     KC_SCLN,    KC_4,    KC_5,    KC_6,  KC_EQL, XXXXXXX,  LPAREN,  RPAREN, KC_LALT, KC_RGUI, \
-     KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, \
+     KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, \
                        KC_DOT,    KC_0, KC_MINS, XXXXXXX, _______
 
 /**
@@ -143,9 +143,9 @@ static uint16_t auto_pointer_layer_timer = 0;
  * `KC_RPRN`.
  */
 #define LAYOUT_LAYER_SYMBOLS                                                                  \
-    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, \
+    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, \
     KC_COLN,  KC_DLR, KC_PERC, KC_CIRC, KC_PLUS, XXXXXXX,  LPAREN,  RPAREN, KC_LALT, KC_RGUI, \
-    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, \
+    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, \
                       KC_LPRN, KC_RPRN, KC_UNDS, _______, XXXXXXX
 
 
