@@ -14,8 +14,6 @@ enum charybdis_keymap_layers {
     LAYER_POINTER,
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
-    LAYER_GAMING,
-    LAYER_GAMING_NUMERAL,
 };
 
 // Automatically enable sniping-mode on the pointer layer.
@@ -39,9 +37,9 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define ESC_SYM LT(LAYER_SYMBOLS, KC_ESC)
 #define BSP_NUM LT(LAYER_NUMERAL, KC_BSPC)
 #define BASE TO(LAYER_BASE)
-#define GAMING TO(LAYER_GAMING)
-#define GAM_NUM MO(LAYER_GAMING_NUMERAL)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
+#define LPAREN RSFT_T(KC_LBRC)
+#define RPAREN RCTL_T(KC_LBRC)
 
 #ifndef POINTING_DEVICE_ENABLE
 #    define DRGSCRL KC_NO
@@ -50,42 +48,25 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    define SNIPING KC_NO
 #endif // !POINTING_DEVICE_ENABLE
 
-// clang-format off
-/** \brief QWERTY layout (3 rows, 10 columns). */
-#define LAYOUT_LAYER_BASE                                                                     \
-       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, \
-       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, \
-       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, \
-                      TAB_MED, SPC_NAV, ENT_FUN, ESC_SYM, BSP_NUM
-
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
 #define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
 
-/*
- * Layers used on the Charybdis Nano.
- *
- * These layers started off heavily inspired by the Miryoku layout, but trimmed
- * down and tailored for a stock experience that is meant to be foundation for
- * further personalization.
- *
- * See https://github.com/manna-harbour/miryoku for the original layout.
- */
+// clang-format off
+/** \brief QWERTY layout (3 rows, 10 columns). */
+#define LAYOUT_LAYER_BASE                                                                         \
+       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, \
+       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, \
+       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, \
+                      TAB_MED, SPC_NAV, ENT_FUN,     ESC_SYM, BSP_NUM
 
-/**
- * \brief Function layer.
- *
- * Secondary right-hand layer has function keys mirroring the numerals on the
- * primary layer with extras on the pinkie column, plus system keys on the inner
- * cLSFT_Tolumn. App is on the tertiary thumb key and other thumb keys are duplicated
- * from the base layer to enable auto-repeat.
- */
-#define LAYOUT_LAYER_FUNCTION                                                                 \
-    _______________DEAD_HALF_ROW_______________, KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
-    ______________HOME_ROW_GACS_L______________, KC_SCRL,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
-    _______________DEAD_HALF_ROW_______________, KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
-                      XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX
+/** \brief Mouse emulation and pointer functions. */
+#define LAYOUT_LAYER_POINTER                                                                      \
+    XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,     S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, \
+    ______________HOME_ROW_GACS_L______________,     ______________HOME_ROW_GACS_R______________, \
+    _______, DRGSCRL, SNIPING, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, SNIPING, DRGSCRL, _______, \
+                      KC_BTN2, KC_BTN1, KC_BTN3,     KC_BTN3, KC_BTN1
 
 /**
  * \brief Media layer.
@@ -93,18 +74,11 @@ static uint16_t auto_pointer_layer_timer = 0;
  * Tertiary left- and right-hand layer is media and RGB control.  This layer is
  * symmetrical to accommodate the left- and right-hand trackball.
  */
-#define LAYOUT_LAYER_MEDIA                                                                    \
-    RGB_RMOD, RGB_MOD, RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX,  GAMING, \
-     KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, \
-     RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX,   NK_ON, QK_BOOT, EE_CLR,  XXXXXXX, RGB_SPI, RGB_SPD, \
-                       _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY
-
-/** \brief Mouse emulation and pointer functions. */
-#define LAYOUT_LAYER_POINTER                                                                  \
-    XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, \
-    ______________HOME_ROW_GACS_L______________, ______________HOME_ROW_GACS_R______________, \
-    _______, DRGSCRL, SNIPING, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,  SNIPING, DRGSCRL, _______, \
-                      KC_BTN2, KC_BTN1, KC_BTN3, KC_BTN3, KC_BTN1
+#define LAYOUT_LAYER_MEDIA                                                                        \
+   RGB_RMOD, RGB_MOD, RGB_TOG, RGB_HUI, RGB_HUD,     RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, \
+    KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT,     KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, \
+    RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX,   NK_ON,     QK_BOOT, EE_CLR,  XXXXXXX, RGB_SPI, RGB_SPD, \
+                      _______, KC_MPLY, KC_MSTP,     KC_MSTP, KC_MPLY
 
 /**
  * \brief Navigation layer.
@@ -114,26 +88,25 @@ static uint16_t auto_pointer_layer_timer = 0;
  * caps lock and insert on the inner column. Thumb keys are duplicated from the
  * base layer to avoid having to layer change mid edit and to enable auto-repeat.
  */
-#define LAYOUT_LAYER_NAVIGATION                                                               \
-    _______________DEAD_HALF_ROW_______________, _______________DEAD_HALF_ROW_______________, \
-    ______________HOME_ROW_GACS_L______________, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, CW_TOGG, \
-    _______________DEAD_HALF_ROW_______________, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, \
-                      XXXXXXX, _______, XXXXXXX,  KC_ESC,  KC_DEL
+#define LAYOUT_LAYER_NAVIGATION                                                                   \
+    _______________DEAD_HALF_ROW_______________,     _______________DEAD_HALF_ROW_______________, \
+    ______________HOME_ROW_GACS_L______________,     KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, CW_TOGG, \
+    _______________DEAD_HALF_ROW_______________,     KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, \
+                      XXXXXXX, _______, XXXXXXX,      KC_ESC,  KC_DEL
 
-#define LPAREN RSFT_T(KC_LBRC)
-#define RPAREN RCTL_T(KC_LBRC)
 /**
- * \brief Numeral layout.
+ * \brief Function layer.
  *
- * Primary left-hand layer (right home thumb) is numerals and symbols. Numerals
- * are in the standard numpad locations with symbols in the remaining positions.
- * `KC_DOT` is duplicated from the base layer.
+ * Secondary right-hand layer has function keys mirroring the numerals on the
+ * primary layer with extras on the pinkie column, plus system keys on the inner
+ * cLSFT_Tolumn. App is on the tertiary thumb key and other thumb keys are duplicated
+ * from the base layer to enable auto-repeat.
  */
-#define LAYOUT_LAYER_NUMERAL                                                                  \
-    KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, \
-    KC_SCLN,    KC_4,    KC_5,    KC_6,  KC_EQL, XXXXXXX,  LPAREN,  RPAREN, KC_LALT, KC_RGUI, \
-     KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, \
-                       KC_DOT,    KC_0, KC_MINS, XXXXXXX, _______
+#define LAYOUT_LAYER_FUNCTION                                                                     \
+    _______________DEAD_HALF_ROW_______________,     KC_PSCR,   KC_F7,   KC_F8,   KC_F9,  KC_F12, \
+    ______________HOME_ROW_GACS_L______________,     KC_SCRL,   KC_F4,   KC_F5,   KC_F6,  KC_F11, \
+    _______________DEAD_HALF_ROW_______________,     KC_PAUS,   KC_F1,   KC_F2,   KC_F3,  KC_F10, \
+                      XXXXXXX, XXXXXXX, _______,     XXXXXXX, XXXXXXX
 
 /**
  * \brief Symbols layer.
@@ -142,30 +115,24 @@ static uint16_t auto_pointer_layer_timer = 0;
  * chording when using mods with shifted symbols. `KC_LPRN` is duplicated next to
  * `KC_RPRN`.
  */
-#define LAYOUT_LAYER_SYMBOLS                                                                  \
-    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, \
-    KC_COLN,  KC_DLR, KC_PERC, KC_CIRC, KC_PLUS, XXXXXXX,  LPAREN,  RPAREN, KC_LALT, KC_RGUI, \
-    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, \
-                      KC_LPRN, KC_RPRN, KC_UNDS, _______, XXXXXXX
-
-
-/**
- * \brief Gaming layer.
- */
-#define LAYOUT_LAYER_GAMING                                                                   \
-            KC_TAB,  KC_Q,    KC_W,    KC_E,   KC_R,      KC_Y,   KC_U,  KC_UP,    KC_O,   KC_P,  \
-            KC_LSFT, KC_A,    KC_S,    KC_D,   KC_F,      KC_H,KC_LEFT,KC_DOWN,KC_RIGHT,   KC_L,  \
-            KC_LCTL, KC_Z,    KC_X,    KC_C,   KC_V,   DRGSCRL,KC_BTN1,KC_BTN2, KC_BTN3,   SNIPING,  \
-                  GAM_NUM,  KC_SPC, KC_LALT,           KC_BTN4, KC_BTN5
+#define LAYOUT_LAYER_SYMBOLS                                                                      \
+    KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,     XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, \
+    KC_COLN,  KC_DLR, KC_PERC, KC_CIRC, KC_PLUS,     XXXXXXX,  LPAREN,  RPAREN, KC_LALT, KC_RGUI, \
+    KC_TILD, KC_EXLM,   KC_AT, KC_HASH, KC_PIPE,     XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, \
+                      KC_LPRN, KC_RPRN, KC_UNDS,     _______, XXXXXXX
 
 /**
- * \brief Gaming numeral layer.
+ * \brief Numeral layout.
+ *
+ * Primary left-hand layer (right home thumb) is numerals and symbols. Numerals
+ * are in the standard numpad locations with symbols in the remaining positions.
+ * `KC_DOT` is duplicated from the base layer.
  */
-#define LAYOUT_LAYER_GAMING_NUMERAL                                                                  \
-          KC_ESC,    KC_7,    KC_8,    KC_9,  KC_ESC,      KC_F6, KC_F7,  KC_F8,   KC_F9,  KC_F10,  \
-         KC_LSFT,    KC_4,    KC_5,    KC_6,    KC_0,      KC_F1, KC_F2,  KC_F3,   KC_F4,   KC_F5,  \
-         KC_LCTL,    KC_1,    KC_2,    KC_3,    BASE,   DRGSCRL,KC_BTN1,KC_BTN2,KC_BTN3,   SNIPING, \
-                           _______,  KC_SPC, KC_LALT,    KC_F11, KC_F12
+#define LAYOUT_LAYER_NUMERAL                                                                      \
+    KC_LBRC,    KC_7,    KC_8,    KC_9, KC_RBRC,     XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, \
+    KC_SCLN,    KC_4,    KC_5,    KC_6,  KC_EQL,     XXXXXXX,  LPAREN,  RPAREN, KC_LALT, KC_RGUI, \
+     KC_GRV,    KC_1,    KC_2,    KC_3, KC_BSLS,     XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, \
+                       KC_DOT,    KC_0, KC_MINS,     XXXXXXX, _______
 
 /**
  * \brief Add Home Row mod to a layout.
@@ -210,6 +177,7 @@ static uint16_t auto_pointer_layer_timer = 0;
       _L_PTR(L20),        L21,         L22,         L23,         L24,  \
              R25,         R26,         R27,         R28,  _L_PTR(R29), \
       __VA_ARGS__
+
 #define POINTER_MOD(...) _POINTER_MOD(__VA_ARGS__)
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
@@ -224,8 +192,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_NUMERAL] = LAYOUT_wrapper(LAYOUT_LAYER_NUMERAL),
   [LAYER_POINTER] = LAYOUT_wrapper(LAYOUT_LAYER_POINTER),
   [LAYER_SYMBOLS] = LAYOUT_wrapper(LAYOUT_LAYER_SYMBOLS),
-  [LAYER_GAMING] = LAYOUT_wrapper(LAYOUT_LAYER_GAMING),
-  [LAYER_GAMING_NUMERAL] = LAYOUT_wrapper(LAYOUT_LAYER_GAMING_NUMERAL),
 };
 // clang-format on
 
