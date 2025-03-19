@@ -36,6 +36,7 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define ENT_FUN LT(LAYER_FUNCTION, KC_ENT)
 #define ESC_SYM LT(LAYER_SYMBOLS, KC_ESC)
 #define BSP_NUM LT(LAYER_NUMERAL, KC_BSPC)
+
 #define BASE TO(LAYER_BASE)
 #define _L_PTR(KC) LT(LAYER_POINTER, KC)
 #define LPAREN RSFT_T(KC_LBRC)
@@ -48,12 +49,12 @@ static uint16_t auto_pointer_layer_timer = 0;
 #    define SNIPING KC_NO
 #endif // !POINTING_DEVICE_ENABLE
 
+// clang-format off
 /** Convenience row shorthands. */
 #define _______________DEAD_HALF_ROW_______________ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX
-#define ______________HOME_ROW_GACS_R______________ XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
+#define ______________HOME_ROW_GACS_L______________ KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_MEH
+#define ______________HOME_ROW_GACS_R______________  KC_MEH, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
 
-// clang-format off
 /** \brief QWERTY layout (3 rows, 10 columns). */
 #define LAYOUT_LAYER_BASE                                                                         \
        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, \
@@ -150,8 +151,8 @@ static uint16_t auto_pointer_layer_timer = 0;
     ...)                                                               \
              L00,         L01,         L02,         L03,         L04,  \
              R05,         R06,         R07,         R08,         R09,  \
-      LGUI_T(L10), LALT_T(L11), LCTL_T(L12), LSFT_T(L13),        L14,  \
-             R15,  RSFT_T(R16), RCTL_T(R17), LALT_T(R18), RGUI_T(R19), \
+      LGUI_T(L10), LALT_T(L11), LCTL_T(L12), LSFT_T(L13), MEH_T(L14),  \
+      MEH_T(R15),  RSFT_T(R16), RCTL_T(R17), LALT_T(R18), RGUI_T(R19), \
       __VA_ARGS__
 #define HOME_ROW_MOD_GACS(...) _HOME_ROW_MOD_GACS(__VA_ARGS__)
 
